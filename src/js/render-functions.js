@@ -3,14 +3,12 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const gallery = document.querySelector('.gallery');
 const loadMoreBtn = document.querySelector('#load-more-btn');
-const loader = document.querySelector('#loader');
-
+const loader = document.querySelector('.loader'); 
 
 let lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
 });
-
 
 export function createGallery(images) {
   const markup = images
@@ -24,7 +22,7 @@ export function createGallery(images) {
         comments,
         downloads,
       }) => `
-        <div class="photo-card">
+        <li class="photo-card">
           <a href="${largeImageURL}">
             <img src="${webformatURL}" alt="${tags}" loading="lazy" />
           </a>
@@ -46,7 +44,7 @@ export function createGallery(images) {
               <span class="value">${downloads}</span>
             </p>
           </div>
-        </div>
+        </li>
       `
     )
     .join('');

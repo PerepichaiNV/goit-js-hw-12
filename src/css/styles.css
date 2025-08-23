@@ -16,12 +16,12 @@ body {
   padding: 40px 20px;
 }
 
-#search-form {
+.form {
   display: flex;
   gap: 10px;
 }
 
-#search-form input[type='text'] {
+.form input[type='text'] {
   padding: 10px;
   font-size: 16px;
   width: 300px;
@@ -29,7 +29,7 @@ body {
   border-radius: 4px;
 }
 
-#search-form button {
+.form button {
   padding: 10px 16px;
   font-size: 16px;
   background-color: #4E75FF;
@@ -40,7 +40,7 @@ body {
   transition: background-color 0.25s ease;
 }
 
-#search-form button:hover {
+.form button:hover {
   background-color: #4E75FF;
 }
 
@@ -49,11 +49,13 @@ body {
 }
 
 .gallery {
+  list-style: none;
+  padding: 48px 24px;
+  margin: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 24px;
-  padding: 48px 24px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -82,7 +84,7 @@ body {
 
 .image-info {
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
   padding: 12px 16px;
   font-size: 14px;
   border-top: 1px solid #eee;
@@ -92,14 +94,13 @@ body {
 
 .image-info p {
   margin: 0;
-  flex: 0 1 auto; 
+  flex: 0 1 auto;
   line-height: 1.3;
-  text-align: center; 
+  text-align: center;
   padding-left: 8px;
   padding-right: 8px;
-  white-space: nowrap; 
+  white-space: nowrap;
 }
-
 
 .image-info p:first-child {
   text-align: left;
@@ -141,9 +142,10 @@ body {
   background-color: #4E75FF;
 }
 
-#loader {
+.loader {
   margin: 10px auto;
   text-align: center;
   font-size: 18px;
   color: #444;
+  display: block;
 }
