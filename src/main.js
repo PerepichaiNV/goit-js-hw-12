@@ -20,7 +20,15 @@ let totalHits = 0;
 form.addEventListener('submit', async e => {
   e.preventDefault();
   const query = e.target.searchQuery.value.trim();
-  if (!query) return;
+
+
+  if (!query) {
+    iziToast.warning({
+      message: 'Please enter a search query.',
+      position: 'topRight',
+    });
+    return;
+  }
 
   searchQuery = query;
   currentPage = 1;
@@ -33,16 +41,24 @@ form.addEventListener('submit', async e => {
     totalHits = data.totalHits;
 
     if (data.hits.length === 0) {
-      iziToast.info({ message: 'No images found. Try again.' });
+      iziToast.info({ message: 'No images found. Try again.', position: 'topRight' });
       return;
     }
 
     createGallery(data.hits);
-    if (totalHits > currentPage * 15) {
+
+    const totalPages = Math.ceil(totalHits / 15);
+
+    if (totalPages === 1) {
+      iziToast.info({
+        message: "We're sorry, but you've reached the end of search results.",
+        position: 'topRight',
+      });
+    } else {
       showLoadMoreButton();
     }
   } catch (error) {
-    iziToast.error({ message: 'Error fetching images.' });
+    iziToast.error({ message: 'Error fetching images.', position: 'topRight' });
   } finally {
     hideLoader();
   }
@@ -56,20 +72,24 @@ loadMoreBtn.addEventListener('click', async () => {
     const data = await getImagesByQuery(searchQuery, currentPage);
     createGallery(data.hits);
 
-    const cardHeight = document
+       const cardHeight = document
       .querySelector('.gallery a')
       .getBoundingClientRect().height;
 
     window.scrollBy({ top: cardHeight * 2, behavior: 'smooth' });
 
-    if (currentPage * 15 >= totalHits) {
+    const totalPages = Math.ceil(totalHits / 15);
+
+ 
+    if (currentPage >= totalPages) {
       hideLoadMoreButton();
       iziToast.info({
         message: "We're sorry, but you've reached the end of search results.",
+        position: 'topRight',
       });
     }
   } catch (error) {
-    iziToast.error({ message: 'Error fetching more images.' });
+    iziToast.error({ message: 'Error fetching more images.', position: 'topRight' });
   } finally {
     hideLoader();
   }
